@@ -1,12 +1,19 @@
 main:
-    server: 'http://server.com'
+    server: 'http://server.com/software/tibco/packages'
+    archive: 'archives'
 
-adapters:
+dependencies: &dependencies
+    - mq_cli: &mq_cli
+        package: 'MQClient'
+        config:
+        action: 'install'
+
+adapters: &adapters
     - obj: &obj
 
-plugins:
+plugins: &plugins
 
-libraries:
+libraries: &libraries
     - lib1: &lib1
         package: 'library_1'
     - lib2: &lib2
@@ -14,29 +21,61 @@ libraries:
 
 packages:
     - rv: &rv
-        package: 'pkg1'
-        config: 'cfg1'
+        package: 'TIB_rv_8.4.3_linux_x86.zip'
+        config: 'Install_TIB_rv_8.4.3_linux_x86.silent'
+        action:
     - bw: &bw
-        package: 'pkg2'
-        config: 'cfg2'
+        package: 'TIB_BW_6.2.1_linux26gl23_x86_64.zip'
+        config: 'Install_TIB_BW_6.2.1_linux26gl23_x86_64.silent'
+        action:
     - tra: &tra
-        package: 'tra.zip'
-        config: 'config.silent'
+        package: 'TIB_TRA_5.9.0_linux_x86_64.zip'
+        config: '   Install_TIB_TRA_5.9.0_linux_x86_64.silent'
         libraries:
             - *lib1
             - *lib2
-    - blah: &blah
-        package: 'dupa'
-        config: 'config'
+        action:
+    - tea: &tea
+        package: 'TIB_tea_2.1.0_linux26gl23_x86_64.zip'
+        config: 'Install_TIB_tea_2.1.0_linux26gl23_x86_64.silent'
         plugins:
-    - other: &other
-        package: 'aksjdf'
-        config: 'skjfa;sdlkfj'
+        action:
+    - hawk: &hawk
+        package: 'TIB_hawk_5.2.0_linux26gl23_x86_64.zip'
+        config: 'Install_TIB_hawk_5.2.0_linux26gl23_x86_64.silent'
+        action:
+    - bpm: &bpm
+        package: 'TIB_amx-bpm_3.1.0_linux24gl23_x86_64.zip'
+        config: 'Install_TIB_amx-bpm_3.1.0_linux24gl23_x86_64.silent'
+        action:
+    - ems: &ems
+        package: 'TIB_ems_8.2.1_linux_x86.zip'
+        config: 'Install_TIB_ems_8.2.1_linux_x86.silent'
+        action:
+    - bpmadmin: &bpmadmin
+        package:
+        config:
+        action:
 
-set_rv:
+set_admin:
     - *rv
-    - *bw
+    - *tea
+    - *hawk
+
+set_bpm:
+    - *bpm
+
+set_bw:
+    - *rv
     - *tra
-    - *blah
-    - *other
-~
+    - *bw
+    - *adapters
+    - *plugins
+
+set_ems:
+    - *ems
+
+set_bpmadmin:
+    - *bpmadmin
+    - *hawk
+
