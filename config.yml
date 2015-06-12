@@ -1,0 +1,42 @@
+main:
+    server: 'http://server.com'
+
+adapters:
+    - obj: &obj
+
+plugins:
+
+libraries:
+    - lib1: &lib1
+        package: 'library_1'
+    - lib2: &lib2
+        package: 'library_2'
+
+packages:
+    - rv: &rv
+        package: 'pkg1'
+        config: 'cfg1'
+    - bw: &bw
+        package: 'pkg2'
+        config: 'cfg2'
+    - tra: &tra
+        package: 'tra.zip'
+        config: 'config.silent'
+        libraries:
+            - *lib1
+            - *lib2
+    - blah: &blah
+        package: 'dupa'
+        config: 'config'
+        plugins:
+    - other: &other
+        package: 'aksjdf'
+        config: 'skjfa;sdlkfj'
+
+set_rv:
+    - *rv
+    - *bw
+    - *tra
+    - *blah
+    - *other
+~
